@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Primeiro Site</title>
+</head>
+<body>
+
+<header class="navbar-google-play">
+    <div class="main-nav">
+        <div class="nav-left">
+            <h1><i class="fa-solid fa-cart-shopping"></i> OpenMart</h1>
+        </div>
+        <div class="nav-center">
+            <a href="/produtos" class="nav-link <%= activePage === 'produtos' ? 'active' : '' %>">Produtos</a>
+            <a href="/servicos" class="nav-link <%= activePage === 'servicos' ? 'active' : '' %>">Serviços</a>
+            <a href="/ofertas" class="nav-link <%= activePage === 'ofertas' ? 'active' : '' %>">Ofertas</a>
+        </div>
+        <div class="nav-right">
+            <div class="search-container">
+                <input type="search" id="search-input" placeholder="Pesquisar...">
+                <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <i class="fa-solid fa-circle-question"></i>
+            <i class="fa-solid fa-user-circle"></i>
+        </div>
+    </div>
+</header>
+
+<div class="sub-nav-container main-container">
+    <div class="sub-nav">
+        <a href="aparelhos eletronicos.html" class="sub-nav-btn active">Aparelhos Eletrônicos</a>
+        <a href="vestuario.html" class="sub-nav-btn">Vestuário</a>
+        <a href="comida e bebida.html" class="sub-nav-btn">Comida e Bebida</a>
+        <a href="saude.html" class="sub-nav-btn">Saúde</a>
+        <a href="ver mais.html" class="sub-nav-btn">Ver Mais</a>
+    </div>
+</div>
+
+<main>
+    <div class="main-container">
+        
+        <div class="section-header">
+            <h2 class="section-title">Favoritos no grande ecrã</h2>
+            <p class="section-subtitle">OpenMart Produtos</p>
+        </div>
+
+        <div class="product-grid" id="product-list">
+            <% products.forEach(product => { %>
+                <a href="/produtos/<%= product._id %>" class="product-card">
+                    <div class="card-image-container">
+                        <% if (product.images && product.images.length > 0) { %>
+                            <% product.images.forEach((image, index) => { %>
+                                <img src="/<%= image %>" alt="<%= product.title %>" class="card-image <%= index === 0 ? 'active' : '' %>">
+                            <% }); %>
+                        <% } %>
+                    </div>
+                    <div class="card-content">
+                        <div class="product-info">
+                            <% if (product.icon) { %>
+                                <img src="/<%= product.icon %>" alt="Ícone do Produto" class="product-icon">
+                            <% } %>
+                            <div class="product-text">
+                                <h3 class="product-title"><%= product.title %></h3>
+                                <p class="product-details"><%= product.category %> • <span><%= product.rating %> ★</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <% }); %>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <hr>
+        <footer>
+            <div>
+                <h4>Google Play</h4>
+                <ul>
+                    <li><a href="#">Play Pass</a></li>
+                    <li><a href="#">Play Points</a></li>
+                    <li><a href="#">Vales de oferta</a></li>
+                    <li><a href="#">Resgatar</a></li>
+                    <li><a href="#">Política de reembolso</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Crianças e família</h4>
+                <ul>
+                    <li><a href="#">Guia parental</a></li>
+                    <li><a href="#">Partilha em família</a></li>
+                </ul>
+            </div>
+
+            <div class="legal">
+                <ul>
+                    <li><a href="#">Termos de Utilização</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                    <li><a href="#">Acerca do Google Play</a></li>
+                    <li><a href="#">Programadores</a></li>
+                    <li><a href="#">Google Store</a></li>
+                    <li><a href="#">Angola (Português (Portugal))</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>

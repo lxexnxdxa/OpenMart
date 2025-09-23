@@ -1,0 +1,541 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+  flex: 1; /* Ocupa todo o espaço disponível entre o cabeçalho e o rodapé */
+}
+
+.navbar-google-play {
+    background-color: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: box-shadow 0.3s ease-in-out; /* Adiciona uma transição suave para a sombra */
+}
+
+.navbar-google-play.scrolled {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Sombra que só aparece com a classe 'scrolled' */
+}
+
+/* Estilo da BARRA SUPERIOR */
+.main-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+}
+
+.nav-left h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.nav-left .fa-cart-shopping {
+    color: #4CAF50;
+    margin-right: 10px;
+}
+
+.nav-center {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #555;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 0;
+    position: relative;
+}
+
+.nav-link.active {
+    color: #4CAF50;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #4CAF50;
+    border-radius: 2px;
+}
+
+.nav-right {
+    display: flex;
+    gap: 20px;
+    font-size: 20px;
+    color: #555;
+}
+
+/* Estilo da BARRA INFERIOR */
+.sub-nav-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.sub-nav {
+    display: flex;
+    gap: 10px;
+    padding: 10px 30px;
+    white-space: nowrap;
+}
+
+.sub-nav-btn {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none; /* Adicionado para remover o sublinhado */
+}
+
+.sub-nav-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.sub-nav-btn.active {
+    background-color: #e6f3e6;
+    border-color: #4CAF50;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.main-content-header {
+    padding: 20px 30px 10px;
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #202124;
+    margin: 0;
+}
+
+.section-subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: #5f6368;
+    margin: 5px 0 0 0;
+}
+
+/* Container de Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.product-card {
+    position: relative; /* Adicione esta linha */
+    text-decoration: none;
+    color: #333;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-image-container {
+    position: relative;
+    overflow: hidden;
+    line-height: 0;
+    aspect-ratio: 16 / 9; /* Adiciona uma proporção de 16 de largura para 9 de altura */
+}
+
+.product-info {
+    display: flex;
+    align-items: center; /* Alinha o ícone e o texto verticalmente */
+    gap: 10px; /* Adiciona um espaço entre o ícone e o texto */
+}
+
+.product-icon {
+    width: 48px; /* Define a largura do ícone. O Le N Da pode ajustar este valor. */
+    height: 48px; /* Define a altura do ícone. */
+    border-radius: 8px; /* Arredonda as bordas do ícone */
+}
+
+.card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.card-image.active {
+    opacity: 1;
+}
+
+/* Adicione esta regra para fazer o iframe ocupar todo o espaço do contêiner */
+.card-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain; /* Alterado de 'cover' para 'contain' */
+}
+
+/* Ícone de play sobre a imagem */
+.play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 15px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.product-card:hover .play-icon {
+    opacity: 1;
+}
+
+/* Estilo do texto */
+.card-content {
+    padding: 15px;
+}
+
+.product-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+}
+
+.product-details {
+    font-size: 0.8rem;
+    color: #777;
+    margin: 0;
+}
+
+.product-details span {
+    color: #f7b731;
+}
+
+/* Estilo para o contêiner principal da página */
+.main-container {
+    max-width: 1200px; /* Define a largura máxima do conteúdo */
+    margin: 0 auto; /* Centraliza o contêiner horizontalmente */
+    padding: 0 15px; /* Adiciona um pequeno espaçamento nas laterais para telas menores */
+    margin-bottom: 25px; /* Esta regra foi ajustada para que não empurre o rodapé para fora da vista. */
+}
+
+/* Você pode adicionar uma regra específica para o espaçamento do rodapé, se precisar */
+.main-container:last-child {
+    margin-bottom: 50px;
+}
+
+.section-header {
+    margin-bottom: 25px; /* Adiciona o espaço entre o cabeçalho e o grid */
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+#search-input {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-size: 14px;
+    transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    width: 0; /* A barra de pesquisa começa com largura zero */
+    opacity: 0; /* A barra de pesquisa começa transparente */
+}
+
+/* O novo estilo para quando a barra estiver 'aberta' */
+.search-container.expanded #search-input {
+    width: 200px;
+    opacity: 1;
+}
+
+#search-btn {
+    background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* As seguintes regras já existiam mas foram agrupadas para melhor organização */
+.sub-nav-btn {
+    text-decoration: none;
+}
+
+/* Estilo para o Rodapé */
+
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 30px; /* Adiciona espaço entre as colunas */
+    padding: 20px 0;
+    font-size: 0.9em; /* Mantém o tamanho das letras pequenas */
+}
+
+footer div {
+    margin-bottom: 20px;
+}
+
+footer h4 {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 5px;
+}
+
+footer ul li a {
+    text-decoration: none;
+    color: #5f6368;
+}
+
+/* Garante que a secção 'legal' fique numa nova linha abaixo */
+footer .legal {
+    flex-basis: 100%;
+    margin-top: 15px;
+    text-align: left;
+}
+
+/* Altera o estilo da lista na secção legal para ficar na horizontal */
+footer .legal ul {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+/* Adiciona espaçamento vertical aos links do rodapé */
+footer ul li {
+    margin-bottom: 15px; /* Aumenta a distância entre os itens da lista */
+}
+
+hr {
+  border: 0; /* Remove a borda padrão do navegador */
+  border-top: 1px solid #e0e0e0; /* Adiciona uma linha sólida de 1 pixel e uma cor cinza clara */
+  margin: 20px 0; /* Adiciona um espaço acima e abaixo da linha */
+}
+
+.product-details-container {
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+}
+
+.product-images-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#product-main-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-info-section {
+    flex: 1;
+}
+
+#product-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#product-price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #007bff; /* Uma cor para destacar o preço */
+    margin-bottom: 20px;
+}
+
+#product-description {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Estilos para a Página de Detalhes do Produto */
+
+.product-details-layout {
+    display: flex;
+    gap: 40px; /* Espaço entre as colunas */
+    margin-top: 30px;
+    flex-wrap: wrap; /* Permite que as colunas saltem para a linha de baixo em ecrãs pequenos */
+}
+
+.product-media-column {
+    flex: 2; /* Ocupa 2 partes do espaço */
+    min-width: 300px; /* Largura mínima para a coluna de media */
+}
+
+.product-info-column {
+    flex: 3; /* Ocupa 3 partes do espaço */
+    min-width: 350px; /* Largura mínima para a coluna de informação */
+}
+
+.product-main-image-container {
+    background-color: #f0f0f0; /* Um fundo para a imagem */
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 350px; /* Altura fixa para a imagem principal */
+}
+
+.product-main-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Garante que a imagem se ajusta sem cortar */
+    border-radius: 12px;
+}
+
+.product-thumbnail-gallery {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.product-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.product-thumbnail:hover, .product-thumbnail.active {
+    border-color: #4285f4;
+}
+
+.product-detail-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #202124;
+}
+
+.product-detail-developer {
+    color: #00875F; /* Cor verde para a categoria */
+    font-size: 1.1em;
+    margin-bottom: 15px;
+}
+
+.product-detail-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #5f6368;
+    font-size: 0.9em;
+    margin-bottom: 25px;
+}
+
+.product-detail-rating span:first-child {
+    font-weight: bold;
+    color: #202124;
+}
+
+.product-detail-actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.install-button {
+    background-color: #00875F; /* Cor de destaque para o botão */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.install-button:hover {
+    background-color: #005F41;
+}
+
+.wishlist-button {
+    background-color: #f0f0f0;
+    color: #5f6368;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.wishlist-button:hover {
+    background-color: #e0e0e0;
+}
+
+.product-detail-description {
+    color: #5f6368;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Responsividade Básica */
+@media (max-width: 768px) {
+    .product-details-layout {
+        flex-direction: column;
+    }
+    .product-media-column,
+    .product-info-column {
+        flex: auto; /* Ocupa a largura total em ecrãs pequenos */
+        min-width: unset;
+    }
+}

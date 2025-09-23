@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= product.title %></title>
+</head>
+<body>
+
+<header class="navbar-google-play">
+    <div class="main-nav">
+        <div class="nav-left">
+            <h1><i class="fa-solid fa-cart-shopping"></i> OpenMart</h1>
+        </div>
+        <div class="nav-center">
+            <a href="/produtos" class="nav-link">Produtos</a>
+            <a href="/servicos" class="nav-link">Serviços</a>
+            <a href="/ofertas" class="nav-link">Ofertas</a>
+        </div>
+        <div class="nav-right">
+            <div class="search-container">
+                <input type="search" id="search-input" placeholder="Pesquisar...">
+                <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <i class="fa-solid fa-circle-question"></i>
+            <i class="fa-solid fa-user-circle"></i>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="main-container product-details-layout">
+        <div class="product-media-column">
+            <div class="product-main-image-container">
+                <% if (product.images && product.images.length > 0) { %>
+                    <img src="/<%= product.images[0] %>" alt="<%= product.title %>" class="product-main-image">
+                <% } else { %>
+                    <img src="/imagens/placeholder.png" alt="Sem imagem" class="product-main-image">
+                <% } %>
+            </div>
+            <div class="product-thumbnail-gallery">
+                <% if (product.images && product.images.length > 1) { %>
+                    <% product.images.forEach((image, index) => { %>
+                        <img src="/<%= image %>" alt="<%= product.title %> - mini <%= index + 1 %>" class="product-thumbnail <%= index === 0 ? 'active' : '' %>">
+                    <% }); %>
+                <% } %>
+            </div>
+            </div>
+
+        <div class="product-info-column">
+            <h1 class="product-detail-title"><%= product.title %></h1>
+            <p class="product-detail-developer"><%= product.category %></p>
+            <div class="product-detail-rating">
+                <span><%= product.rating %> ★</span>
+                <span class="reviews-count">500 mil avaliações</span> </div>
+            <div class="product-detail-actions">
+                <button class="install-button">Comprar</button>
+                <button class="wishlist-button"><i class="fa-regular fa-bookmark"></i></button>
+            </div>
+            <p class="product-detail-description">
+                Este é um espaço para a descrição detalhada do produto. Poderíamos ter um texto longo aqui a descrever todas as funcionalidades, benefícios e como usar o produto.
+                <br><br>
+                **Nota:** O Le N Da terá de adicionar um campo `description` no seu `product.model.js` e na base de dados para que este texto seja dinâmico.
+            </p>
+            </div>
+    </div>
+
+    <div class="main-container">
+        <hr>
+        <footer>
+            <div>
+                <h4>Google Play</h4>
+                <ul>
+                    <li><a href="#">Play Pass</a></li>
+                    <li><a href="#">Play Points</a></li>
+                    <li><a href="#">Vales de oferta</a></li>
+                    <li><a href="#">Resgatar</a></li>
+                    <li><a href="#">Política de reembolso</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Crianças e família</h4>
+                <ul>
+                    <li><a href="#">Guia parental</a></li>
+                    <li><a href="#">Partilha em família</a></li>
+                </ul>
+            </div>
+
+            <div class="legal">
+                <ul>
+                    <li><a href="#">Termos de Utilização</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                    <li><a href="#">Acerca do Google Play</a></li>
+                    <li><a href="#">Programadores</a></li>
+                    <li><a href="#">Google Store</a></li>
+                    <li><a href="#">Angola (Português (Portugal))</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</main>
+
+</body>
+</html>

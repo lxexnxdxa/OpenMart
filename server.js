@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 
 // Ligar à base de dados MongoDB
 // A string de conexão deve ser uma variável de ambiente por segurança
-const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/OpenMart";
+const mongoURI = process.env.MONGODB_URI;
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Conectado ao MongoDB com sucesso!'))
   .catch(err => console.error('Erro ao conectar-se ao MongoDB:', err));
